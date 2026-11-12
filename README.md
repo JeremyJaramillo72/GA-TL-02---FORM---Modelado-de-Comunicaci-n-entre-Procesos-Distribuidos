@@ -115,6 +115,15 @@ El diseño representa las interacciones entre los componentes del sistema bancar
 - **Tipo:** Asíncrona.
 - **Descripción:** El sistema de notificaciones y auditorías consume los eventos publicados por el servidor de aplicación.
 
+**7. Base de Datos Principal → Base de Datos Réplica (Nodo Standby)**
+
+- **Mecanismo:** Replicación física mediante WAL Streaming Replication.
+- **Protocolo:** TCP.
+- **Puerto:** 5432 
+- **Middleware:** Replicación nativa de PostgreSQL.
+- **Tipo:** Síncrona.
+- **Descripción:** La base de datos principal transmite continuamente los registros del Write-Ahead Log (WAL) hacia el nodo Standby. 
+- **Justificación:** Se utiliza replicación síncrona para reducir la posibilidad de pérdida de transacciones confirmadas ante una falla del nodo principal.
 ---
 
 ## 6. Visualización y Edición del Diagrama
