@@ -1,33 +1,29 @@
-
 # GA-TL-02 — Taller de Modelado de Comunicación entre Procesos Distribuidos
 
-Repositorio correspondiente a la actividad formativa grupal preparatoria para la Práctica Experimental de la Unidad 1 (PE-U1 / GA-SUM-01).
+Repositorio correspondiente a la actividad formativa grupal preparatoria para la Práctica Experimental de la Unidad 1 (PE-U1 / GA-SUM-01) de la asignatura Aplicaciones Distribuidas.
 
 ---
 
 ## 1. Información Académica e Institucional
 
 - **Institución:** Universidad Técnica Estatal de Quevedo (UTEQ).
-- **Facultad:** Facultad de Ciencias de la Ingeniería.
+- **Facultad:** Facultad de Ciencias de la Ingeniería (FCI).
 - **Carrera:** Ingeniería de Software.
 - **Asignatura:** Aplicaciones Distribuidas (SOF-I-R).
 - **Nivel / Paralelo:** 7mo Nivel — Paralelo "A".
 - **Docente:** Dr. Gleiston Cicerón Guerrero Ulloa.
 - **Período / Semana:** Semana 2 (2 al 8 de noviembre de 2026).
 - **Código de Actividad:** GA-TL-02 - FORM.
-- **Escenario de Negocio:** Sistema Bancario de Transferencias.
+- **Carácter de la Actividad:** Formativa (preparatoria para PE-U1 / GA-SUM-01).
+- **Escenario de Negocio Asignado:** Sistema Bancario de Transferencias.
 
 ---
 
 ## 2. Descripción de la Actividad
 
-El presente proyecto corresponde al taller de modelado de comunicación entre procesos distribuidos, cuyo escenario de negocio es un **Sistema Bancario de Transferencias**.
+El presente taller práctico modela la arquitectura de comunicación entre procesos distribuidos para un Sistema Bancario de Transferencias. El diseño desarrollado sirve como base técnica conceptual para la implementación práctica que se evaluará en la Práctica Experimental de la Unidad 1 (PE-U1), donde se implementará y comparará la comunicación mediante Sockets TCP y RPC (gRPC).
 
-El objetivo es representar mediante un diagrama la comunicación e interacción entre los diferentes procesos y servicios que intervienen en una transferencia bancaria, identificando los mecanismos de comunicación, protocolos, middleware y características de las interacciones.
-
-El modelo contempla la solicitud de transferencias desde una aplicación de banca móvil o cajero automático (ATM), la validación antifraude, la ejecución de operaciones de débito y crédito, la actualización de cuentas en PostgreSQL y la publicación de eventos para los servicios de notificaciones y auditoría.
-
-Para establecer la comunicación entre los componentes se utilizan mecanismos síncronos y asíncronos, incluyendo REST mediante HTTPS, sockets TCP, RPC mediante gRPC y mensajería mediante AMQP con RabbitMQ.
+- **Enlace al Diagrama en Línea (draw.io):** [Diagrama del Sistema Bancario en diagrams.net](https://app.diagrams.net/#G1-uXBEb-HvhBgk12dZY92STUV4sAz9cFo#%7B%22pageId%22%3A%22sFHvxhZjUFzQrptnvxQm%22%7D)
 
 ---
 
@@ -42,98 +38,59 @@ Para establecer la comunicación entre los componentes se utilizan mecanismos s�
 
 ---
 
-## 4. Estructura y Contenido del Repositorio
-
-El repositorio contiene los archivos correspondientes al diagrama de comunicación del Sistema Bancario de Transferencias.
+## 4. Estructura del Repositorio
 
 ```text
-├── README.md
-├── diagrama_bancario.drawio
-├── Diagrama de Comunicación-Página-1.drawio (4).pdf
-└── Diagrama del Sistema Bancario-V1.drawio.png
+├── .gitignore                                          # Exclusión de temporales de compilación y carpetas locales
+├── README.md                                           # Información institucional, integrantes e instrucciones de compilación
+├── diagrama_bancario.drawio                            # Archivo editable del diagrama de comunicación (draw.io)
+├── Diagrama de Comunicación-Página-1.drawio (4).pdf     # Exportación vectorial del diagrama en PDF
+├── Diagrama de Comunicación-Página-1.drawio.png         # Exportación del diagrama en imagen PNG
+├── main.tex                                            # Notas de presentación y respuestas a preguntas críticas en LaTeX
+├── main.pdf                                            # Documento compilado en PDF de las notas de presentación
+└── referencias.bib                                     # Fuentes bibliográficas en formato BibTeX (estilo IEEE)
 ```
 
-**Descripción de los archivos:**
-
-- `README.md`: documentación general del proyecto, información académica, integrantes e instrucciones de visualización.
-- `diagrama_bancario.drawio`: archivo editable original del diagrama de comunicación.
-- `Diagrama de Comunicación-Página-1.drawio (4).pdf`: exportación del diagrama en formato PDF.
-- `Diagrama del Sistema Bancario-V1.drawio.png`: exportación del diagrama en formato PNG.
+> **Acceso directo al diagrama:** [Abrir diagrama editable en diagrams.net (draw.io)](https://app.diagrams.net/#G1-uXBEb-HvhBgk12dZY92STUV4sAz9cFo#%7B%22pageId%22%3A%22sFHvxhZjUFzQrptnvxQm%22%7D)
 
 ---
 
-## 5. Resumen del Modelo de Comunicación entre Procesos
+## 5. Instrucciones de Compilación del Documento LaTeX (`main.tex`)
 
-El diseño representa las interacciones entre los componentes del sistema bancario mediante diferentes mecanismos de comunicación:
+El archivo `main.tex` contiene las notas de la presentación, las preguntas críticas recibidas y las respuestas técnicas sustentadas con referencias bibliográficas en formato IEEE.
 
-**1. Cliente (Banca Móvil / ATM) → Servidor de Aplicación**
+Para compilar `main.tex` y generar el archivo `main.pdf`:
 
-- **Mecanismo:** Comunicación REST.
-- **Protocolo:** HTTPS sobre TCP.
-- **Puerto:** 443.
-- **Tipo:** Síncrona.
-- **Descripción:** El cliente solicita la ejecución de una transferencia al servidor de aplicación.
+### Requisitos Previos
+Contar con una distribución de LaTeX instalada ([MiKTeX](https://miktex.org/) en Windows o [TeX Live](https://tug.org/texlive/) en Linux) con el procesador bibliográfico **Biber**.
 
-**2. Servidor de Aplicación ↔ Motor Antifraude**
+### Opción 1: Compilación por Línea de Comandos (CLI)
+Al utilizar `biblatex` con backend `biber`, se debe ejecutar la siguiente secuencia:
 
-- **Mecanismo:** Sockets TCP puros.
-- **Protocolo:** TCP.
-- **Puerto:** 9090.
-- **Tipo:** Síncrona.
-- **Descripción:** El servidor solicita la validación del riesgo de la transferencia al motor antifraude y espera su respuesta.
+```powershell
+# 1. Generar archivos auxiliares
+pdflatex -interaction=nonstopmode main.tex
 
-**3. Servidor de Aplicación → Servicios de Saldo y Cuentas**
+# 2. Procesar las referencias bibliográficas
+biber main
 
-- **Mecanismo:** RPC mediante gRPC.
-- **Protocolo:** HTTP/2 y Protocol Buffers.
-- **Puerto:** 50051.
-- **Tipo:** Síncrona.
-- **Descripción:** Se ejecutan las operaciones correspondientes al débito y crédito de las cuentas.
+# 3. Vincular las citas en el documento
+pdflatex -interaction=nonstopmode main.tex
 
-**4. Servicios de Saldo y Cuentas ↔ Base de Datos**
+# 4. Resolver referencias cruzadas y numeración final
+pdflatex -interaction=nonstopmode main.tex
+```
 
-- **Mecanismo:** Comunicación cliente-servidor.
-- **Protocolo:** TCP.
-- **Puerto:** 5432.
-- **Tecnología:** PostgreSQL.
-- **Tipo:** Síncrona.
-- **Descripción:** Se realizan las operaciones de actualización de cuentas mediante transacciones de base de datos.
+### Opción 2: Compilación Automatizada con `latexmk`
+```powershell
+latexmk -pdf main.tex
+```
 
-**5. Servidor de Aplicación → Broker de Mensajería**
+### Opción 3: Editores de Escritorio (VS Code / TeXstudio)
+- **Visual Studio Code:** Abrir `main.tex` con la extensión *LaTeX Workshop* instalada y presionar `Ctrl + Alt + B`.
+- **TeXstudio:** Configurar el backend bibliográfico como `Biber` y presionar `F5` (Compilar y Ver).
 
-- **Mecanismo:** Mensajería asíncrona.
-- **Protocolo:** AMQP 0-9-1.
-- **Middleware:** RabbitMQ.
-- **Puerto:** 5672.
-- **Tipo:** Asíncrona.
-- **Descripción:** Se publica un evento de transferencia exitosa para que otros servicios puedan procesarlo.
-
-**6. Broker de Mensajería → Sistema de Notificaciones y Auditorías**
-
-- **Mecanismo:** Mensajería mediante AMQP.
-- **Middleware:** RabbitMQ.
-- **Tipo:** Asíncrona.
-- **Descripción:** El sistema de notificaciones y auditorías consume los eventos publicados por el servidor de aplicación.
-
-**7. Base de Datos Principal → Base de Datos Réplica (Nodo Standby)**
-
-- **Mecanismo:** Replicación física mediante WAL Streaming Replication.
-- **Protocolo:** TCP.
-- **Puerto:** 5432 
-- **Middleware:** Replicación nativa de PostgreSQL.
-- **Tipo:** Síncrona.
-- **Descripción:** La base de datos principal transmite continuamente los registros del Write-Ahead Log (WAL) hacia el nodo Standby. 
-- **Justificación:** Se utiliza replicación síncrona para reducir la posibilidad de pérdida de transacciones confirmadas ante una falla del nodo principal.
----
-
-## 6. Visualización y Edición del Diagrama
-
-El diagrama fue elaborado mediante la herramienta diagrams.net (draw.io). Para visualizarlo o modificarlo se deben seguir los siguientes pasos:
-
-1. Ingresar al sitio web oficial: [diagrams.net](https://app.diagrams.net/).
-2. Seleccionar la opción para abrir un diagrama existente.
-3. Elegir la opción **Dispositivo (Device)**.
-4. Buscar y seleccionar el archivo `diagrama_bancario.drawio`.
-5. Una vez abierto, se podrá visualizar y editar el diagrama de comunicación.
-
-También se puede consultar el diseño directamente mediante los archivos PDF y PNG disponibles en el repositorio, sin necesidad de utilizar la herramienta de edición.
+### Opción 4: Compilación en Overleaf
+1. Subir `main.tex` y `referencias.bib` al proyecto.
+2. En **Menu** (esquina superior izquierda), comprobar que el compilador sea **pdfLaTeX** y la versión de TeX Live sea actual.
+3. Presionar **Recompile**.
